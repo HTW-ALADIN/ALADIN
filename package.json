@@ -5,7 +5,8 @@
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
-		"prepublish": "tsc",
+		"run": "-C ttypescript",
+		"prepublish": "ttsc -b",
 		"test": "jest"
 	},
 	"keywords": [
@@ -27,11 +28,17 @@
 		"@types/seedrandom": "^3.0.5",
 		"alea": "^1.0.1",
 		"babel-jest": "^29.5.0",
+		"casual": "^1.6.2",
+		"chance": "^1.1.11",
+		"mocker-data-generator": "^3.0.1",
+		"randexp": "^0.5.3",
 		"seedrandom": "^3.0.5",
 		"simplex-noise": "^4.0.1",
-		"squirrelly": "^8.0.8"
+		"typescript-rtti": "^0.8.3"
 	},
 	"devDependencies": {
+		"@faker-js/faker": "^7.6.0",
+		"@types/faker": "^6.6.9",
 		"@types/glob": "^8.1.0",
 		"@types/jest": "^29.4.0",
 		"@types/node": "^18.14.2",
