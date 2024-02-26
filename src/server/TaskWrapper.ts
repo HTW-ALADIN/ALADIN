@@ -6,6 +6,8 @@ import { InterpolationTaskGenerator } from "../Legacy/Tasks/geoInterpolation/Geo
 import { ShortestPathTaskGenerator } from "../Legacy/Tasks/shortestPath/MunkeltWorker";
 import { EPKTaskGenerator } from "../Legacy/Tasks/EPK/EPKTask";
 import { SchedulingTaskGenerator } from "../Legacy/Tasks/scheduling/Task";
+import {generateRegexPuzzle} from "../Tasks/RegExp/regexWrapper";
+import {validateRegexPuzzle} from "../Tasks/RegExp/regexWrapper";
 
 import fs from "fs";
 import path from "path";
@@ -63,6 +65,10 @@ const generators: { [key: string]: any } = {
 	ShortestPathTaskGenerator: ShortestPathTaskGenerator,
 	EPKTaskGenerator: EPKTaskGenerator,
 	SchedulingTaskGenerator: SchedulingTaskGenerator,
+	generateRegexPuzzle: generateRegexPuzzle,
+	validateRegexPuzzle: validateRegexPuzzle
+	
+
 };
 
 export interface IInstructionConfiguration {

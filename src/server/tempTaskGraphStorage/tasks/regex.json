@@ -1,0 +1,191 @@
+{
+	"API": [
+		{
+			"task": "regex",
+			"name": "generateRegexPuzzle",
+			"httpMethod": "post",
+			"params": {
+				"parameters": "object"
+			}
+		},
+		{
+			"task": "regex",
+			"name": "validateRegexPuzzle",
+			"httpMethod": "post",
+			"params": {
+				"parameters": "object"
+			}
+		}
+
+
+	
+	],
+
+	"Worker": {
+		"regexTask": {
+			"minConsumers": 1,
+			"consumerInstructions": {
+				"generateRegexPuzzle": {
+					"dependencies": ["generateRegexPuzzle"],
+					"body": "async (taskDescription) => {let result = {};try { result = generateRegexPuzzle(taskDescription.parameters); } catch (error) { console.error(error); result = error;} return result; }"
+				},
+
+				"validateRegexPuzzle": {
+                    "dependencies": ["validateRegexPuzzle"],
+                    "body": "async (taskDescription) => { return await validateRegexPuzzle(taskDescription); }"
+                }
+			}
+
+		}
+	},
+	"UI": {
+		"currentTask": "regex",
+		"taskData": {},
+		"rootNode": 0,
+		"topology": [[0, null, null]],
+		"edges": {
+			"0": [1],
+			"1": []
+		},
+		"taskMode":"practice",
+		"currentNode": 0,
+		"nodes": {
+			"0": {
+				"zoomScale": 1,
+				"layouts": {
+					"sm": [{ "x": 32, "y": 31, "w": 2, "h": 2, "i": 0, "static": false }],
+					"md": [{ "x": 32, "y": 31, "w": 2, "h": 2, "i": 0, "static": false }],
+					"lg": [{ "x": 34, "y": 29, "w": 3, "h": 4, "i": 0, "static": false }]
+						   
+				},
+				"modals": [],
+				"components": {
+					"0":{
+						"type": "TaskConfiguration",
+						"name": "Konfiguration",
+						"isValid": true,
+						"component": {
+							"title": "Parameter Konfiguration",
+							"actions": [
+								{
+									"instruction": "generateRegexPuzzle",
+									"type": "fetchData",
+									"label": "Generieren!",
+									"dependsOn": ["columns", "rows", "seed"]
+								}
+							],
+							"form": {
+								"columns": {
+									"formType": "ValueFormField",
+								
+									"label": "Columns",
+									"description": "Bestimmt die Anzahl der Spalten",
+									"type": "number",
+									"step": 1,
+									"validate": true,
+									"boundaries": {
+										"min": 2,
+										"max": 10
+									}
+								},
+								"rows": {
+									"formType": "ValueFormField",
+									"label": "Rows",
+									"description": "Bestimmt die Anzahl der Zeilen",
+									"step": 1,
+									"validate": true,
+									"boundaries": {
+										"min": 2,
+										"max": 10
+									}
+									
+								},
+								"seed": {
+									"isValid": false,
+									"formType": "ValueFormField",
+									"label": "Seed",
+									"type": "text",
+									"description": "Setze einen beliebigen Wert um die Generierung deterministisch und reproduzierbar zu machen",
+									"value": "",
+									"validate": false,
+									"presets": {
+										"easy": "",
+										"medium": "",
+										"hard": ""
+									}
+								}
+				
+							}
+						}
+					}
+				
+					
+				
+					
+
+
+				}
+			},
+			"1": {
+				"zoomScale": 1,
+				"layouts": {
+					"sm": [{ "x": 32, "y": 31, "w": 2, "h": 2, "i": 0, "static": false }],
+					"md": [{ "x": 32, "y": 31, "w": 2, "h": 2, "i": 0, "static": false }],
+					"lg": [{ "x": 34, "y": 29, "w": 3, "h": 4, "i": 0, "static": false }]
+						   
+						   
+				},
+				"modals": [],
+				"components": {
+
+					"0": {
+						"type": "Matrix",
+						"validationConfig": {
+
+							"instruction": "validateRegexPuzzle"
+						},
+						"name": "MatrixAnzeige",
+						"isValid": true,
+						"isCorrect": false,
+						"methods": {},
+						"dependencies": {
+							"Matrix": { "data": "taskData__Matrix" }
+						},
+
+						
+
+						"component": {
+							"initialize": {
+								"user": {
+                                    "operations": [
+                                        {
+                                            "name": "getValueInitializedMatrix",
+                                            "args": [null]
+                                        }
+                                    ],
+                                    "paths": ["taskData__Matrix"]
+                                },
+
+								"solution": {
+                                    "operations": [],
+                                    "paths": ["taskData__Matrix"]
+                                }
+								 
+						},
+						"userData": null,
+						"validationData": null,
+                        "solutionData": null,
+						"readOnly": false,
+						"rowLabel": "taskData__RowLabel",
+						"columnLabel": "taskData__ColumnLabel",
+						"inputType": ""
+						
+						
+						
+					}
+					
+					
+
+		}
+	}
+}}}}
