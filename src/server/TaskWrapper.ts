@@ -6,6 +6,7 @@ import { InterpolationTaskGenerator } from "../Legacy/Tasks/geoInterpolation/Geo
 import { ShortestPathTaskGenerator } from "../Legacy/Tasks/shortestPath/MunkeltWorker";
 import { EPKTaskGenerator } from "../Legacy/Tasks/EPK/EPKTask";
 import { SchedulingTaskGenerator } from "../Legacy/Tasks/scheduling/Task";
+import { generateFermentationDataMain } from "../Tasks/Ferment/wrapperFunctionCallPython";
 
 import fs from "fs";
 import path from "path";
@@ -63,6 +64,7 @@ const generators: { [key: string]: any } = {
 	ShortestPathTaskGenerator: ShortestPathTaskGenerator,
 	EPKTaskGenerator: EPKTaskGenerator,
 	SchedulingTaskGenerator: SchedulingTaskGenerator,
+	generateFermentationDataMain: generateFermentationDataMain,
 };
 
 export interface IInstructionConfiguration {

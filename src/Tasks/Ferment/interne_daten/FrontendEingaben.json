@@ -1,0 +1,42 @@
+{
+    "Modell": "Modell-1",
+    "PhasenAnzahl": 3,
+    "Dauer": [
+        10,
+        10,
+        10
+    ],
+    "Druck": [
+        1,
+        1,
+        1
+    ],
+    "Drehzahl": [
+        100,
+        100,
+        100
+    ],
+    "Zuluft": [
+        1,
+        1,
+        1
+    ],
+    "BolusC": [
+        1,
+        1,
+        1
+    ],
+    "Feed": [
+        1,
+        1,
+        1
+    ],
+    "BolusN": [
+        1,
+        1,
+        1
+    ],
+    "temperatur": 0,
+    "startbiomasse": 0,
+    "do": 0
+}
