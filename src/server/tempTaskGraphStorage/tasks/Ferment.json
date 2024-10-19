@@ -1,7 +1,7 @@
 {
 	"API": [
 		{
-			"task": "Fermentierung",
+			"task": "Ferment",
 			"name": "generateFermentationDataMain",
 			"httpMethod": "post",
 			"params": {
@@ -10,7 +10,7 @@
 		}
 	],
 	"Worker": {
-		"FermentierungTask": {
+		"FermentTask": {
 			"minConsumers": 1,
 			"consumerInstructions": {
 				"generateFermentationDataMain": {
@@ -21,7 +21,7 @@
 		}
 	},
 	"UI": {
-		"currentTask": "Fermentierung",
+		"currentTask": "Ferment",
 		"taskMode": "strictPractice",
 		"taskData": {},
 		"rootNode": 0,

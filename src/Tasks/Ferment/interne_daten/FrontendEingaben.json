@@ -1,49 +1,42 @@
 {
     "Modell": "Modell-1",
-    "PhasenAnzahl": 4,
+    "PhasenAnzahl": 3,
     "Dauer": [
-        48,
-        12,
-        6,
-        20
+        10,
+        10,
+        10
     ],
     "Druck": [
         1,
-        2,
         1,
-        3
+        1
     ],
     "Drehzahl": [
-        1200,
-        1200,
-        1200,
-        1200
+        100,
+        100,
+        100
     ],
     "Zuluft": [
-        1,
         1,
         1,
         1
     ],
     "BolusC": [
-        50,
-        25,
-        30,
-        15
-    ],
-    "Feed": [
-        7,
-        3,
-        5,
-        2
-    ],
-    "BolusN": [
-        5,
-        2,
-        3,
+        1,
+        1,
         1
     ],
-    "temperatur": 30,
+    "Feed": [
+        1,
+        1,
+        1
+    ],
+    "BolusN": [
+        1,
+        1,
+        1
+    ],
+    "temperatur": 0,
     "startbiomasse": 0,
-    "do": 100
+    "do": 0
 }
