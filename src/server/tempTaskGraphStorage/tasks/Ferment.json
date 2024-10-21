@@ -1,0 +1,493 @@
+{
+	"API": [
+		{
+			"task": "Ferment",
+			"name": "generateFermentationDataMain",
+			"httpMethod": "post",
+			"params": {
+				"parameters": "object"
+			}
+		}
+	],
+	"Worker": {
+		"FermentTask": {
+			"minConsumers": 1,
+			"consumerInstructions": {
+				"generateFermentationDataMain": {
+					"dependencies": ["generateFermentationDataMain"],
+					"body": "async (taskDescription) => {let result = {};try { result = generateFermentationDataMain(taskDescription)} catch{} return result; }"
+				}
+			}
+		}
+	},
+	"UI": {
+		"currentTask": "Ferment",
+		"taskMode": "strictPractice",
+		"taskData": {},
+		"rootNode": 0,
+		"previousNode": 0,
+		"topology": [
+			[0, null, null],
+			[1, 2, null],
+			[3, 4, null],
+			[5, 6, null],
+			[7, 8, null],
+			[9, null, null],
+			[10, null, null]
+		],
+		"edges": {
+			"0": []
+		},
+		"currentNode": 0,
+		"nodes": {
+			"0": {
+				"zoomScale": 1,
+				"layouts": {
+					"sm": [
+						{
+							"x": 31,
+							"y": 37,
+							"w": 3,
+							"h": 4,
+							"i": 0,
+							"static": false
+						},
+						{
+							"x": 10,
+							"y": 5,
+							"w": 2,
+							"h": 3,
+							"i": 1,
+							"static": false
+						},
+						{
+							"x": 12,
+							"y": 5,
+							"w": 2,
+							"h": 5,
+							"i": 2,
+							"static": false
+						}
+					],
+					"md": [
+						{
+							"x": 0,
+							"y": 0,
+							"w": 5,
+							"h": 6,
+							"i": 0,
+							"static": false
+						},
+						{
+							"x": 0,
+							"y": 5,
+							"w": 2,
+							"h": 3,
+							"i": 1,
+							"static": false
+						},
+						{
+							"x": 0,
+							"y": 10,
+							"w": 2,
+							"h": 5,
+							"i": 2,
+							"static": false
+						}
+					],
+					"lg": [
+						{
+							"x": 31,
+							"y": 29,
+							"w": 2,
+							"h": 2.5,
+							"i": 0,
+							"static": false
+						},
+						{
+							"x": 31,
+							"y": 31,
+							"w": 2,
+							"h": 2,
+							"i": 1,
+							"static": false
+						},
+						{
+							"x": 33,
+							"y": 31,
+							"w": 6,
+							"h": 2,
+							"i": 2,
+							"static": false
+						},
+						{
+							"x": 33,
+							"y": 29,
+							"w": 4,
+							"h": 2.5,
+							"i": 3,
+							"static": false
+						},
+						{
+							"x": 37,
+							"y": 29,
+							"w": 4,
+							"h": 2.5,
+							"i": 4,
+							"static": false
+						}
+					]
+				},
+				"hints": {
+					"active": false,
+					"current": 0,
+					"descriptions": [
+						"Wählen Sie zuerst den Organismus aus.<br> Dann Ziehen Sie den Schieberegler nach rechts oder links um die Anzahl der Phasen zu bestimmen. <br> Dann geben sie die Werte für die zwei stehende Tabellen ein.",
+						"Viel Erfolg! <br><br> <img width=\"100px;\" height=\"100px\"; src=\"https://images.emojiterra.com/twitter/512px/1f340.png\" />"
+					]
+				},
+				"isValid": false,
+				"components": {
+					"0": {
+						"type": "BackendFormular",
+						"name": "Diagramm generieren",
+						"isValid": false,
+						"component": {
+							"actions": [
+								{
+									"instruction": "generateFermentationDataMain",
+									"type": "fetchData",
+									"label": "Berechnen!",
+									"dependsOn": [
+										"nodes__0__components__0__component__form__nodeAmount__isValid",
+										"nodes__0__components__0__component__form__seed__isValid",
+										"nodes__0__components__2__isValid"
+									]
+								}
+							],
+							"form": {
+								"nodeAmount": {
+									"isValid": false,
+									"formType": "DropdownFormField",
+									"label": "Organismus",
+									"type": "string",
+									"description": "Zur Verfügung stehende Organismus",
+									"action": { "instruction": "fetchTaskData", "type": "fetchData", "key": "schema" },
+									"initial": "S.cerevisiae",
+									"options": ["S.cerevisiae", "E.coli", "Testorganismus"],
+									"presets": {
+										"easy": "S.cerevisiae",
+										"medium": "E.coli",
+										"hard": "Testorganismus"
+									}
+								},
+								"seed": {
+									"formType": "ValueFormField",
+									"label": "Phasenanzahl",
+									"type": "text",
+									"description": "Setze einen beliebigen Wert für die Phasenanzahl",
+									"value": "3",
+									"validate": false,
+									"presets": {
+										"easy": "",
+										"medium": "",
+										"hard": ""
+									}
+								}
+							},
+							"data": {
+								"userDataMatrix": "nodes__0__components__2__component__userData",
+								"userDataInputFelder": "nodes__0__components__1__component__inputFelderValues"
+							}
+						}
+					},
+					"1": {
+						"type": "Bild",
+						"name": "Fermentationsapparat",
+						"component": {
+							"pfad": "/img/tasks/Ferment/FermentALADIN_bild.png",
+							"inputFelder": [
+								{
+									"type": "text",
+									"placeholder": "V Gesamt",
+									"align": "left",
+									"width": "50px"
+								},
+								{
+									"type": "text",
+									"placeholder": "V Start",
+									"align": "left",
+									"width": "50px"
+								},
+								{
+									"type": "text",
+									"placeholder": "T",
+									"align": "right",
+									"width": "50px"
+								},
+								{
+									"type": "text",
+									"placeholder": "PH",
+									"align": "left",
+									"width": "50px"
+								},
+								{
+									"type": "text",
+									"placeholder": "BTM",
+									"align": "right",
+									"width": "50px"
+								},
+								{
+									"type": "text",
+									"placeholder": "DO",
+									"align": "left",
+									"width": "50px"
+								}
+							],
+							"inputFelderValues": {}
+						}
+					},
+					"2": {
+						"name": "Direktbedarfsmatrix",
+						"type": "Matrix",
+						"isValid": false,
+						"isCorrect": false,
+						"dependencies": {
+							"Matrix": {
+								"data": "nodes__0__components__2__component__userData"
+							}
+						},
+						"methods": {},
+						"contextMenu": {
+							"isOpen": false,
+							"usedMethods": []
+						},
+						"component": {
+							"initialize": {
+								"solution": {
+									"operations": [],
+									"paths": ["taskData__adjacencyMatrix"]
+								},
+								"validation": {
+									"operations": [
+										{
+											"name": "getValueInitializedMatrix",
+											"args": [
+												{
+													"isValid": false,
+													"isCorrect": false
+												}
+											]
+										}
+									],
+									"paths": ["taskData__adjacencyMatrix"]
+								},
+								"user": {
+									"operations": [
+										{
+											"name": "getMatrix",
+											"args": []
+										}
+									],
+									"paths": ["taskData__adjacencyMatrix"]
+								}
+							},
+							"standardZeile": [1, 1, 1, 1, 100, 1, 10],
+							"userData": [],
+							"checkUserDataValidity": "valid",
+							"columnLabelData": [
+								"Zuluft in NL/min",
+								"BolusC in g/L",
+								"Feed in g/(L*h)",
+								"BolusN in g/L",
+								"Drehzahl in rpm",
+								"Druck in barg",
+								"Dauer in h"
+							],
+							"rowLabelData": ["Phase"],
+							"validationData": null,
+							"solutionData": null,
+							"readOnly": false,
+							"rowLabel": "nodes__0__components__2__component__rowLabelData",
+							"columnLabel": "nodes__0__components__2__component__columnLabelData",
+							"inputType": "number",
+							"rowAnzahl": "nodes__0__components__0__component__form__seed__value",
+							"spaltenMaxSumme": [
+								{
+									"spaltenName": "Dauer in h",
+									"maxSumme": 200
+								}
+							],
+							"columnRange": [
+								{
+									"name": "Zuluft in NL/min",
+									"min": 0,
+									"max": 2
+								},
+								{
+									"name": "BolusC in g/L",
+									"min": 0,
+									"max": 50
+								},
+								{
+									"name": "Feed in g/(L*h)",
+									"min": 0,
+									"max": 10
+								},
+								{
+									"name": "BolusN in g/L",
+									"min": 0,
+									"max": 10
+								},
+								{
+									"name": "Drehzahl in rpm",
+									"min": 100,
+									"max": 2000
+								},
+								{
+									"name": "Druck in barg",
+									"min": 0,
+									"max": 3
+								},
+								{
+									"name": "Dauer in h",
+									"min": 0,
+									"max": "200"
+								}
+							]
+						}
+					},
+					"methods": {
+						"fillZeros": {
+							"description": "Ergänze Nullen",
+							"impact": 0.5
+						},
+						"showSolution": {
+							"description": "Zeige Lösung",
+							"impact": 0
+						},
+						"copyToClipboard": {
+							"description": "Kopieren",
+							"impact": 1
+						}
+					},
+					"contextMenu": {
+						"isOpen": false,
+						"usedMethods": []
+					},
+					"component": {
+						"initialize": {
+							"solution": {
+								"operations": [],
+								"paths": ["taskData__adjacencyMatrix"]
+							},
+							"validation": {
+								"operations": [
+									{
+										"name": "getValueInitializedMatrix",
+										"args": [
+											{
+												"isValid": false,
+												"isCorrect": false
+											}
+										]
+									}
+								],
+								"paths": ["taskData__adjacencyMatrix"]
+							},
+							"user": {
+								"operations": [
+									{
+										"name": "getMatrix",
+										"args": []
+									}
+								],
+								"paths": ["taskData__adjacencyMatrix"]
+							}
+						},
+						"standardZeile": [[1, 1, 1, 1, 100, 1, 10]],
+						"userData": [],
+						"checkDiasabledValidity": false,
+						"columnLabelData": [
+							"Zuluft in NL/min",
+							"BolusC in g/L",
+							"Feed in g/(L*h)",
+							"BolusN in g/L",
+							"Drehzahl in rpm",
+							"Druck in barg",
+							"Dauer in h"
+						],
+						"rowLabelData": ["Phase"],
+						"validationData": null,
+						"solutionData": null,
+						"readOnly": false,
+						"rowLabel": "nodes__0__components__2__component__rowLabelData",
+						"columnLabel": "nodes__0__components__2__component__columnLabelData",
+						"inputType": "number",
+						"rowAnzahl": "nodes__0__components__0__component__form__seed__value",
+						"spaltenMaxSumme": [
+							{
+								"spaltenName": "Dauer in h",
+								"maxSumme": 200
+							}
+						],
+						"columnRange": [
+							{
+								"name": "Zuluft in NL/min",
+								"min": 0,
+								"max": 2
+							},
+							{
+								"name": "BolusC in g/L",
+								"min": 0,
+								"max": 50
+							},
+							{
+								"name": "Feed in g/(L*h)",
+								"min": 0,
+								"max": 10
+							},
+							{
+								"name": "BolusN in g/L",
+								"min": 0,
+								"max": 10
+							},
+							{
+								"name": "Drehzahl in rpm",
+								"min": 100,
+								"max": 2000
+							},
+							{
+								"name": "Druck in barg",
+								"min": 0,
+								"max": 3
+							},
+							{
+								"name": "Dauer in h",
+								"min": 0,
+								"max": "200"
+							}
+						]
+					},
+					"3": {
+						"name": "Fermentationsverlauf",
+						"type": "Chart",
+						"component": {
+							"labels": "taskData__data_1__labels",
+							"datasets": "taskData__data_1__datasets"
+						}
+					},
+					"4": {
+						"name": "Fermentatiosverlauf Cs2",
+						"type": "Chart",
+						"component": {
+							"labels": "taskData__data_2__labels",
+							"datasets": "taskData__data_2__datasets"
+							
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,306 +1,304 @@
 {
-	"API": [
-		{
-			"task": "sql",
-			"name": "generateQuery",
-			"httpMethod": "post",
-			"params": { "parameters": "object", "schema": "string", "language": "string" }
-		},
-		{
-			"task": "sql",
-			"name": "validateQuery",
-			"httpMethod": "post",
-			"params": { "parameters": "object" }
-		},
-		{
-			"task": "sql",
-			"name": "generateERD",
-			"httpMethod": "post",
-			"params": { "parameters": "object" }
-		},
-		{
-			"task": "sql",
-			"name": "fetchERD",
-			"httpMethod": "post",
-			"params": { "parameters": "object" }
-		}
-	],
-	"Worker": {
-		"sqlTask": {
-			"minConsumers": 1,
-			"consumerInstructions": {
-				"generateQuery": {
-					"dependencies": ["sqlQueryGenerator"],
-					"body": "async (taskDescription) => { return await sqlQueryGenerator(taskDescription); }"
-				},
-				"validateQuery": {
-					"dependencies": ["sqlQueryValidator"],
-					"body": "async (taskDescription) => { return await sqlQueryValidator(taskDescription); }"
-				},
-				"importDatabase": {
-					"dependencies": ["importDatabase"],
-					"body": "async (taskDescription) => { return await importDatabase(taskDescription); }"
-				},
-				"fetchERD": {
-					"dependencies": ["fetchERD"],
-					"body": "async (taskDescription) => { return await fetchERD(taskDescription); }"
-				}
-			}
-		}
-	},
-	"UI": {
-		"currentTask": "sql",
-		"taskData": {},
-		"rootNode": 0,
-		"topology": [[0, null, null]],
-		"edges": {
-			"0": []
-		},
-		"currentNode": 0,
-		"nodes": {
-			"0": {
-				"zoomScale": 1,
-				"layouts": {
-					"sm": [
-						{ "x": 32, "y": 31, "w": 2, "h": 2, "i": 0, "static": false },
-						{ "x": 32, "y": 29, "w": 2, "h": 2, "i": 1, "static": false },
-						{ "x": 34, "y": 29, "w": 2, "h": 2, "i": 2, "static": false },
-						{ "x": 34, "y": 31, "w": 2, "h": 2, "i": 3, "static": false },
-						{ "x": 36, "y": 31, "w": 2, "h": 2, "i": 4, "static": false }
-					],
-					"md": [
-						{ "x": 32, "y": 31, "w": 2, "h": 2, "i": 0, "static": false },
-						{ "x": 32, "y": 29, "w": 2, "h": 2, "i": 1, "static": false },
-						{ "x": 34, "y": 29, "w": 2, "h": 2, "i": 2, "static": false },
-						{ "x": 34, "y": 31, "w": 2, "h": 2, "i": 3, "static": false },
-						{ "x": 36, "y": 31, "w": 2, "h": 2, "i": 4, "static": false }
-					],
-					"lg": [
-						{ "x": 38, "y": 29, "w": 3, "h": 4, "i": 0, "static": false },
-						{ "x": 32, "y": 29, "w": 2, "h": 3, "i": 1, "static": false },
-						{ "x": 34, "y": 29, "w": 4, "h": 2, "i": 2, "static": false },
-						{ "x": 34, "y": 31, "w": 2, "h": 2, "i": 3, "static": false },
-						{ "x": 36, "y": 31, "w": 2, "h": 2, "i": 4, "static": false }
-					]
-				},
-				"hints": {
-					"active": false,
-					"current": 0,
-					"descriptions": [
-						"Generiere eine beliebige SQL-Abfrage. <br>Ermittle nun anhand der Aufgabenstellung und des Datenbankdiagramms die nötigen Felder, Tabellen und Joins um die Abfrage zu bilden. <br>Trage das Statement in das Code-Widget ein und klicke auf 'Ausführen' um das Ergebnis zu überprüfen."
-					]
-				},
-				"modals": [
-					{
-						"trigger": {
-							"type": "success"
-						},
-						"content": {
-							"header": "Herzlichen Glückwunsch!",
-							"body": "Sie haben die Aufgabe erfolgreich gelöst!",
-							"footer": {
-								"buttons": [
-									{ "type": "close", "label": "Zurück", "parameters": {} },
-									{ "type": "route", "label": "Zur Übersicht", "parameters": { "route": "TaskOverview" } }
-								]
-							}
-						},
-						"active": false
-					}
-				],
-				"components": {
-					"0": {
-						"type": "DOTGraph",
-						"name": "DB",
-						"isValid": true,
-						"dependencies": { "dotDescription": "taskData__dotDescription" },
-						"component": {}
-					},
-					"1": {
-						"type": "TaskConfiguration",
-						"name": "Konfiguration",
-						"isValid": true,
-						"component": {
-							"title": "Parameter Konfiguration",
-							"actions": [
-								{
-									"instruction": "generateQuery",
-									"type": "fetchData",
-									"label": "Generieren!",
-									"dependsOn": ["joinRange", "columnRange", "constraintRange"]
-								}
-							],
-							"form": {
-								"schema": {
-									"formType": "DropdownFormField",
-									"label": "Datenbank",
-									"type": "string",
-									"description": "Zur Verfügung stehende Datenbanken",
-									"action": { "instruction": "fetchERD", "type": "fetchData", "key": "schema" },
-									"initial": "northwind",
-									"options": ["northwind", "sports", "airport"],
-									"presets": {
-										"easy": "airport",
-										"medium": "northwind",
-										"hard": "sports"
-									}
-								},
-								"joinRange": {
-									"formType": "RangeFormField",
-									"label": "Anzahl Joins",
-									"type": "number",
-									"description": "Bestimmt die Anzahl an Joins",
-									"initial": {
-										"lowerValue": 0,
-										"upperValue": 2
-									},
-									"step": 1,
-									"boundaries": { "min": 0, "max": 5 },
-									"presets": {
-										"easy": 0,
-										"medium": 2,
-										"hard": 3
-									}
-								},
-								"columnRange": {
-									"formType": "RangeFormField",
-									"label": "Anzahl Spalten",
-									"type": "number",
-									"description": "Bestimmt die Anzahl an Spalten",
-									"initial": {
-										"lowerValue": 1,
-										"upperValue": 4
-									},
-									"step": 1,
-									"boundaries": { "min": 1, "max": 5 },
-									"presets": {
-										"easy": 1,
-										"medium": 3,
-										"hard": 5
-									}
-								},
-								"constraintRange": {
-									"formType": "RangeFormField",
-									"label": "Anzahl Bedingungen",
-									"type": "number",
-									"description": "Bestimmt die Anzahl an Bedingungen",
-									"initial": {
-										"lowerValue": 0,
-										"upperValue": 3
-									},
-									"step": 1,
-									"boundaries": { "min": 0, "max": 6 },
-									"presets": {
-										"easy": 0,
-										"medium": 2,
-										"hard": 4
-									}
-								},
-								"allowAggregates": {
-									"formType": "CheckboxFormField",
-									"label": "Aggregat",
-									"type": "checkbox",
-									"description": "Bestimmt ob Aggregationen generiert werden",
-									"initial": false,
-									"presets": {
-										"easy": false,
-										"medium": true,
-										"hard": true
-									}
-								},
-								"forceHavingClause": {
-									"formType": "CheckboxFormField",
-									"label": "Having-Clause",
-									"type": "checkbox",
-									"description": "Bestimmt ob eine Having Clause generiert wird",
-									"initial": false,
-									"presets": {
-										"easy": false,
-										"medium": true,
-										"hard": true
-									}
-								},
-								"orderBy": {
-									"formType": "CheckboxFormField",
-									"label": "OrderBy",
-									"type": "checkbox",
-									"description": "Bestimmt ob ein Order By Statement generiert wird",
-									"initial": true,
-									"presets": {
-										"easy": true,
-										"medium": true,
-										"hard": true
-									}
-								},
-								"seed": {
-									"formType": "ValueFormField",
-									"label": "Seed",
-									"type": "text",
-									"description": "Setze einen beliebigen Wert um die Generierung deterministisch und reproduzierbar zu machen",
-									"value": "",
-									"presets": {
-										"easy": "",
-										"medium": "",
-										"hard": ""
-									}
-								}
-							}
-						}
-					},
-					"2": {
-						"type": "CodeEditor",
-						"name": "SQL-Query",
-						"isValid": true,
-						"methods": {
-							"showSolution": { "description": "Zeig mir die Lösung", "impact": 0 },
-							"copyToClipboard": { "description": "Kopieren!", "impact": "0" }
-						},
-						"contextMenu": {
+    "API": [
+        {
+            "task": "sql",
+            "name": "generateQuery",
+            "httpMethod": "post",
+            "params": { "parameters": "object", "schema": "string", "language": "string" }
+        },
+        {
+            "task": "sql",
+            "name": "validateQuery",
+            "httpMethod": "post",
+            "params": { "parameters": "object" }
+        },
+        {
+            "task": "sql",
+            "name": "generateERD",
+            "httpMethod": "post",
+            "params": { "parameters": "object" }
+        },
+        {
+            "task": "sql",
+            "name": "fetchERD",
+            "httpMethod": "post",
+            "params": { "parameters": "object" }
+        }
+    ],
+    "Worker": {
+        "sqlTask": {
+            "minConsumers": 1,
+            "consumerInstructions": {
+                "generateQuery": {
+                    "dependencies": ["sqlQueryGenerator"],
+                    "body": "async (taskDescription) => { return await sqlQueryGenerator(taskDescription); }"
+                },
+                "validateQuery": {
+                    "dependencies": ["sqlQueryValidator"],
+                    "body": "async (taskDescription) => { return await sqlQueryValidator(taskDescription); }"
+                },
+                "importDatabase": {
+                    "dependencies": ["importDatabase"],
+                    "body": "async (taskDescription) => { return await importDatabase(taskDescription); }"
+                },
+                "fetchERD": {
+                    "dependencies": ["fetchERD"],
+                    "body": "async (taskDescription) => { return await fetchERD(taskDescription); }"
+                }
+            }
+        }
+    },
+    "UI": {
+        "currentTask": "sql",
+        "taskData": {},
+        "rootNode": 0,
+        "topology": [[0, null, null]],
+        "edges": {
+            "0": []
+        },
+        "currentNode": 0,
+        "nodes": {
+            "0": {
+                "zoomScale": 1,
+                "layouts": {
+                    "sm": [
+                        { "x": 32, "y": 31, "w": 2, "h": 2, "i": 0, "static": false },
+                        { "x": 32, "y": 29, "w": 2, "h": 2, "i": 1, "static": false },
+                        { "x": 34, "y": 29, "w": 2, "h": 2, "i": 2, "static": false },
+                        { "x": 34, "y": 31, "w": 2, "h": 2, "i": 3, "static": false },
+                        { "x": 36, "y": 31, "w": 2, "h": 2, "i": 4, "static": false }
+                    ],
+                    "md": [
+                        { "x": 32, "y": 31, "w": 2, "h": 2, "i": 0, "static": false },
+                        { "x": 32, "y": 29, "w": 2, "h": 2, "i": 1, "static": false },
+                        { "x": 34, "y": 29, "w": 2, "h": 2, "i": 2, "static": false },
+                        { "x": 34, "y": 31, "w": 2, "h": 2, "i": 3, "static": false },
+                        { "x": 36, "y": 31, "w": 2, "h": 2, "i": 4, "static": false }
+                    ],
+                    "lg": [
+                        { "x": 38, "y": 29, "w": 3, "h": 4, "i": 0, "static": false },
+                        { "x": 32, "y": 29, "w": 2, "h": 3, "i": 1, "static": false },
+                        { "x": 34, "y": 29, "w": 4, "h": 2, "i": 2, "static": false },
+                        { "x": 34, "y": 31, "w": 2, "h": 2, "i": 3, "static": false },
+                        { "x": 36, "y": 31, "w": 2, "h": 2, "i": 4, "static": false }
+                    ]
+                },
+                "hints": {
+                    "active": false,
+                    "current": 0,
+                    "descriptions": [
+                        "Generiere eine beliebige SQL-Abfrage. <br>Ermittle nun anhand der Aufgabenstellung und des Datenbankdiagramms die nötigen Felder, Tabellen und Joins um die Abfrage zu bilden. <br>Trage das Statement in das Code-Widget ein und klicke auf 'Ausführen' um das Ergebnis zu überprüfen."
+                    ]
+                },
+                "modals": [
+                    {
+                        "trigger": {
+                            "type": "success"
+                        },
+                        "content": {
+                            "header": "Herzlichen Glückwunsch!",
+                            "body": "Sie haben die Aufgabe erfolgreich gelöst!",
+                            "footer": {
+                                "buttons": [
+                                    { "type": "close", "label": "Zurück", "parameters": {} },
+                                    { "type": "route", "label": "Zur Übersicht", "parameters": { "route": "TaskOverview" } }
+                                ]
+                            }
+                        },
+                        "active": false
+                    }
+                ],
+                "components": {
+                    "0": {
+                        "type": "DOTGraph",
+                        "name": "DB",
+                        "isValid": true,
+                        "dependencies": { "dotDescription": "taskData__dotDescription" },
+                        "component": {}
+                    },
+                    "1": {
+                        "type": "TaskConfiguration",
+                        "name": "Konfiguration",
+                        "isValid": true,
+                        "component": {
+                            "title": "Parameter Konfiguration",
+                            "actions": [
+                                {
+                                    "instruction": "generateQuery",
+                                    "type": "fetchData",
+                                    "label": "Generieren!",
+                                    "dependsOn": ["joinRange", "columnRange", "constraintRange"]
+                                }
+                            ],
+                            "form": {
+                                "schema": {
+                                    "formType": "DropdownFormField",
+                                    "label": "Datenbank",
+                                    "type": "string",
+                                    "description": "Zur Verfügung stehende Datenbanken",
+                                    "action": { "instruction": "fetchERD", "type": "fetchData", "key": "schema" },
+                                    "initial": "northwind",
+                                    "options": ["northwind", "sports", "airport"],
+                                    "presets": {
+                                        "easy": "airport",
+                                        "medium": "northwind",
+                                        "hard": "sports"
+                                    }
+                                },
+                                "joinRange": {
+                                    "formType": "RangeFormField",
+                                    "label": "Anzahl Joins",
+                                    "type": "number",
+                                    "description": "Bestimmt die Anzahl an Joins",
+                                    "initial": {
+                                        "lowerValue": 0,
+                                        "upperValue": 2
+                                    },
+                                    "step": 1,
+                                    "boundaries": { "min": 0, "max": 5 },
+                                    "presets": {
+                                        "easy": 0,
+                                        "medium": 2,
+                                        "hard": 3
+                                    }
+                                },
+                                "columnRange": {
+                                    "formType": "RangeFormField",
+                                    "label": "Anzahl Spalten",
+                                    "type": "number",
+                                    "description": "Bestimmt die Anzahl an Spalten",
+                                    "initial": {
+                                        "lowerValue": 1,
+                                        "upperValue": 4
+                                    },
+                                    "step": 1,
+                                    "boundaries": { "min": 1, "max": 5 },
+                                    "presets": {
+                                        "easy": 1,
+                                        "medium": 3,
+                                        "hard": 5
+                                    }
+                                },
+                                "constraintRange": {
+                                    "formType": "RangeFormField",
+                                    "label": "Anzahl Bedingungen",
+                                    "type": "number",
+                                    "description": "Bestimmt die Anzahl an Bedingungen",
+                                    "initial": {
+                                        "lowerValue": 0,
+                                        "upperValue": 3
+                                    },
+                                    "step": 1,
+                                    "boundaries": { "min": 0, "max": 6 },
+                                    "presets": {
+                                        "easy": 0,
+                                        "medium": 2,
+                                        "hard": 4
+                                    }
+                                },
+                                "allowAggregates": {
+                                    "formType": "CheckboxFormField",
+                                    "label": "Aggregat",
+                                    "type": "checkbox",
+                                    "description": "Bestimmt ob Aggregationen generiert werden",
+                                    "initial": false,
+                                    "presets": {
+                                        "easy": false,
+                                        "medium": true,
+                                        "hard": true
+                                    }
+                                },
+                                "forceHavingClause": {
+                                    "formType": "CheckboxFormField",
+                                    "label": "Having-Clause",
+                                    "type": "checkbox",
+                                    "description": "Bestimmt ob eine Having Clause generiert wird",
+                                    "initial": false,
+                                    "presets": {
+                                        "easy": false,
+                                        "medium": true,
+                                        "hard": true
+                                    }
+                                },
+                                "orderBy": {
+                                    "formType": "CheckboxFormField",
+                                    "label": "OrderBy",
+                                    "type": "checkbox",
+                                    "description": "Bestimmt ob ein Order By Statement generiert wird",
+                                    "initial": true,
+                                    "presets": {
+                                        "easy": true,
+                                        "medium": true,
+                                        "hard": true
+                                    }
+                                },
+                                "seed": {
+                                    "formType": "ValueFormField",
+                                    "label": "Seed",
+                                    "type": "text",
+                                    "description": "Setze einen beliebigen Wert um die Generierung deterministisch und reproduzierbar zu machen",
+                                    "value": "",
+                                    "presets": {
+                                        "easy": "",
+                                        "medium": "",
+                                        "hard": ""
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "2": {
+                        "type": "CodeEditor",
+                        "name": "SQL-Query",
+                        "isValid": true,
+                        "methods": {
+                            "showSolution":  {"description": "Zeig mir die Lösung", "impact": 0}, "copyToClipboard": {"description":  "Kopieren!", "impact":"0"}
+                            
+                        },
+                        "contextMenu": {
 							"isOpen": false,
 							"usedMethods": []
 						},
-						"actions": [
-							{
-								"type": "execute",
-								"instruction": "validateQuery",
-								"label": "Ausführen!",
-								"parameters": {
-									"expectedResult": "taskData__result",
-									"schema": "nodes__0__components__1__component__form__schema__initial",
-									"query": "nodes__0__components__2__component__code"
-								}
-							}
-						],
-						"dependencies": { "CodeEditor": { "validCode": "taskData__query" } },
-						"component": {
-							"language": ".sql",
-							"code": ""
-						}
-					},
-					"3": {
-						"type": "Output",
-						"name": "SQL-Output",
-						"isValid": false,
-						"dependencies": {
-							"Output": { "serverOutput": "taskData__userResult", "validOutput": "taskData__isMatchingResult" }
-						},
-						"component": {
-							"header": "SQL-Rückgabe"
-						}
-					},
-					"4": {
-						"type": "Output",
-						"name": "SQL-Query",
-						"isValid": true,
-						"dependencies": {
-							"Output": { "serverOutput": "taskData__description", "validOutput": "isMatchingResult" }
-						},
-						"component": {
-							"header": "Aufgabenstellung"
-						}
-					}
-				}
-			}
-		}
-	}
+                        "actions": [
+                            {
+                                "type": "execute",
+                                "instruction": "validateQuery",
+                                "label": "Ausführen!",
+                                "parameters": {
+                                    "expectedResult": "taskData__result",
+                                    "schema": "nodes__0__components__1__component__form__schema__initial",
+                                    "query": "nodes__0__components__2__component__code"
+                                }
+                            }
+                        ],
+                        "dependencies": { "CodeEditor": { "validCode": "taskData__query" } },
+                        "component": {
+                            "language": ".sql",
+                            "code": ""
+                        }
+                    },
+                    "3": {
+                        "type": "Output",
+                        "name": "SQL-Output",
+                        "isValid": false,
+                        "dependencies": {
+                            "Output": { "serverOutput": "taskData__userResult", "validOutput": "taskData__isMatchingResult" }
+                        },
+                        "component": {
+                            "header": "SQL-Rückgabe"
+                        }
+                    },
+                    "4": {
+                        "type": "Output",
+                        "name": "SQL-Query",
+                        "isValid": true,
+                        "dependencies": { "Output": { "serverOutput": "taskData__description", "validOutput": "isMatchingResult" } },
+                        "component": {
+                            "header": "Aufgabenstellung"
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

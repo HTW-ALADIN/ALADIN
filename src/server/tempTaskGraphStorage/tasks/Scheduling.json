@@ -107,13 +107,13 @@
 					},
 					"1": {
 						"type": "Output",
-						"name": "Output",
+						"name": "Vorgangsliste",
 						"isValid": true,
 						"dependencies": {
 							"Output": { "serverOutput": "taskData__table", "validOutput": "taskData__table" }
 						},
 						"component": {
-							"header": "Output"
+							"header": "Vorgangsliste"
 						}
 					}
 				}
