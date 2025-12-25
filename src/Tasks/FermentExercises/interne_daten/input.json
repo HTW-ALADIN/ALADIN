@@ -1,0 +1,26 @@
+{
+    "Modell" : "Modell-1",  
+
+    "PhasenAnzahl" : 4,
+    
+    "Dauer" : [24,24,24,24],
+    
+    "Druck": [0.01,0.01,0.01,0.01],
+    
+    "Drehzahl" : [800,800,800,800],
+    
+    "Zuluft": [0.67,0.67,0.67,0.67],
+
+    "BolusC" : [0,0,0,0],
+
+    "Feed" : [0,0,0,0],
+
+    "BolusN" : [5,5,5,5],
+
+    "temperatur": 30,
+
+    "startbiomasse": 0.05,
+
+    "do":100
+    
+}

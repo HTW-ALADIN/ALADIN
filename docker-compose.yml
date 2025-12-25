@@ -11,7 +11,7 @@ services:
             - ./:/server
         ports:
             - ${ALADIN_PORT}:${ALADIN_PORT}
-
+ 
     reverse-proxy:
         build:
             context: services/nginx
@@ -25,13 +25,13 @@ services:
             - ${REVERSE_PROXY_PORT}:${REVERSE_PROXY_PORT}
             - ${ALADIN_PORT}:${ALADIN_PORT}
             - 3000:3000
-
+ 
     postgres_2:
         build:
             context: services/postgres
             dockerfile: postgres.Dockerfile
         container_name: postgres_2
-        user: 999:999 
+        user: 999:999
         environment:
             POSTGRES_USER: ${POSTGRES_USER}
             POSTGRES_PASSWORD: ${POSTGRES_PW}
@@ -40,7 +40,7 @@ services:
             - ${POSTGRES_PORT}:${POSTGRES_PORT}
         volumes:
             - postgres-data:/var/lib/postgresql/data
-
+ 
     mongodb:
         build:
             context: services/mongodb
@@ -55,7 +55,7 @@ services:
         volumes:
             - "mongodb_data:/bitnami/mongodb"
         restart: unless-stopped
-
+ 
     # maxima:
     #     build:
     #         context: services/maxima
@@ -63,7 +63,7 @@ services:
     #     container_name: maxima
     #     volumes:
     #         - ./services/maxima/:/worker/
-
+ 
 volumes:
     mongodb_data:
     postgres-data:

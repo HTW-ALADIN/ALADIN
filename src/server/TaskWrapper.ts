@@ -6,13 +6,11 @@ import { InterpolationTaskGenerator } from "../Legacy/Tasks/geoInterpolation/Geo
 import { ShortestPathTaskGenerator } from "../Legacy/Tasks/shortestPath/MunkeltWorker";
 import { EPKTaskGenerator } from "../Legacy/Tasks/EPK/EPKTask";
 import { SchedulingTaskGenerator } from "../Legacy/Tasks/scheduling/Task";
-import { selectSubstitution } from "../Tasks/Chemistry/SubstitutionSelector";
-import { clusterAnalysisMain } from "../Tasks/ClusterAnalysis/wrapperFunctionCallPython";
-
-import { DataSamplingGenerator } from "../Tasks/DecisionTrees/WrapperDataSampler";
-import { DecisionTreeTaskGenerator } from "../Tasks/DecisionTrees/Task";
-import { DecisionTreeValidator } from "../Tasks/DecisionTrees/WrapperValidateDecisionTree";
-
+import { generateFermentationDataMain } from "../Tasks/Ferment/wrapperFunctionCallPython";
+import { generateFermentExercises } from "../Tasks/FermentExercises/wrapperFunctionCallPython";
+import { generateFermentationFeedBack } from "../Tasks/Ferment/wrapperFunctionCallPython";
+import { generateReactionData } from "../Tasks/Reakt/wrapperFunctionCallPython";
+import { generateExperimentierenDataMain } from "../Tasks/Experimentieren/wrapperFunctionCallPython";
 import fs from "fs";
 import path from "path";
 
@@ -69,11 +67,11 @@ const generators: { [key: string]: any } = {
 	ShortestPathTaskGenerator: ShortestPathTaskGenerator,
 	EPKTaskGenerator: EPKTaskGenerator,
 	SchedulingTaskGenerator: SchedulingTaskGenerator,
-	DataSamplingGenerator: DataSamplingGenerator,
-	DecisionTreeTaskGenerator: DecisionTreeTaskGenerator,
-	DecisionTreeValidator: DecisionTreeValidator,
-	selectSubstitution: selectSubstitution,
-	clusterAnalysisMain: clusterAnalysisMain,
+	generateFermentationDataMain: generateFermentationDataMain,
+	generateFermentExercises: generateFermentExercises,
+	generateFermentationFeedBack: generateFermentationFeedBack,
+	generateReactionData: generateReactionData,
+	generateExperimentierenDataMain: generateExperimentierenDataMain
 };
 
 export interface IInstructionConfiguration {
@@ -138,7 +136,6 @@ export const executeTask = async (instructionConfiguration: IInstructionConfigur
 	// return await parsedFunctions[instruction](instructionConfiguration);
 	try {
 		const { type, instruction } = instructionConfiguration;
-		//console.log(type,instruction,taskWorkers[`${type}Task`]);
 		const func = await taskWorkers[`${type}Task`][instruction];
 		const result = await func(instructionConfiguration);
 		return result;

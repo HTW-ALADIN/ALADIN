@@ -1,0 +1,35 @@
+{
+    "Modell": "Modell-1",
+    "PhasenAnzahl": 2,
+    "Dauer": {
+        "Phase_1": 10,
+        "Phase_2": 10
+    },
+    "Druck": {
+        "Phase_1": 1,
+        "Phase_2": 1
+    },
+    "Drehzahl": {
+        "Phase_1": 100,
+        "Phase_2": 100
+    },
+    "Zuluft": {
+        "Phase_1": 1,
+        "Phase_2": 1
+    },
+    "BolusC": {
+        "Phase_1": 1,
+        "Phase_2": 1
+    },
+    "Feed": {
+        "Phase_1": 1,
+        "Phase_2": 1
+    },
+    "BolusN": {
+        "Phase_1": 1,
+        "Phase_2": 1
+    },
+    "do": 0,
+    "T": 0,
+    "BTM": 0
+}

@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as s}from"./index-ac1dbb22.js";const o={name:"Test",setup(){return{}}};const _={class:"test"};function n(c,a,p,r,d,f){return s(),t("div",_)}const i=e(o,[["render",n],["__scopeId","data-v-2120d9f4"]]);export{i as default};

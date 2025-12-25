@@ -1,0 +1,333 @@
+{
+	"API": [
+		{
+			"task": "Reakt",
+			"name": "generateReactionData",
+			"httpMethod": "post",
+			"params": {
+				"parameters": "object"
+			}
+		}
+	],
+	"Worker": {
+		"ReaktTask": {
+			"minConsumers": 1,
+			"consumerInstructions": {
+				"generateReactionData": {
+					"dependencies": ["generateReactionData"],
+					"body": "async (taskDescription) => {let result = {};try { result = generateReactionData(taskDescription)} catch{} return result; }"
+				}
+			}
+		}
+	},
+	"UI": {
+		"currentTask": "Reakt",
+		"taskMode": "strictPractice",
+		"taskData": {},
+		"rootNode": 0,
+		"previousNode": 0,
+		"topology": [
+			[0, null, null],
+			[1, 2, null],
+			[3, 4, null],
+			[5, 6, null],
+			[7, 8, null],
+			[9, null, null],
+			[10, null, null]
+		],
+		"edges": {
+			"0": []
+		},
+		"currentNode": 0,
+		"nodes": {
+			"0": {
+				"zoomScale": 1,
+				"layouts": {
+					"sm": [
+						{
+							"x": 31,
+							"y": 37,
+							"w": 3,
+							"h": 4,
+							"i": 0,
+							"static": false
+						},
+						{
+							"x": 10,
+							"y": 5,
+							"w": 2,
+							"h": 3,
+							"i": 1,
+							"static": false
+						},
+						{
+							"x": 12,
+							"y": 5,
+							"w": 2,
+							"h": 5,
+							"i": 2,
+							"static": false
+						}
+					],
+					"md": [
+						{
+							"x": 0,
+							"y": 0,
+							"w": 5,
+							"h": 6,
+							"i": 0,
+							"static": false
+						},
+						{
+							"x": 0,
+							"y": 5,
+							"w": 2,
+							"h": 3,
+							"i": 1,
+							"static": false
+						},
+						{
+							"x": 0,
+							"y": 10,
+							"w": 2,
+							"h": 5,
+							"i": 2,
+							"static": false
+						}
+					],
+					"lg": [
+						{
+							"x": 30,
+							"y": 29,
+							"w": 2,
+							"h": 2.5,
+							"i": 0,
+							"static": false
+						},
+						{
+							"x": 40,
+							"y": 29,
+							"w": 2,
+							"h": 2.5,
+							"i": 1,
+							"static": false
+						},
+						{
+							"x": 30,
+							"y": 31,
+							"w": 4,
+							"h": 2.5,
+							"i": 2,
+							"static": false
+						},
+						{
+							"x": 34,
+							"y": 31,
+							"w": 4,
+							"h": 2.5,
+							"i": 3,
+							"static": false
+						},
+						{
+							"x": 38,
+							"y": 31,
+							"w": 4,
+							"h": 2.5,
+							"i": 4,
+							"static": false
+						},
+						{
+							"x": 32,
+							"y": 29,
+							"w": 8,
+							"h": 2.5,
+							"i": 5,
+							"static": true
+						}
+					]
+				},
+				"hints": {
+					"active": false,
+					"current": 0,
+					"descriptions": [
+						"Viel Erfolg! <br><br> <img width=\"100px;\" height=\"100px\"; src=\"https://images.emojiterra.com/twitter/512px/1f340.png\" />"
+					]
+				},
+				"isValid": false,
+				"components": {
+					"0": {
+						"type": "BackendFormular",
+						"name": "Reaktionsauswahl",
+						"isValid": false,
+						"component": {
+							"actions": [
+								{
+									"instruction": "generateReactionData",
+									"type": "fetchData",
+									"label": "Generieren!",
+									"dependsOn": [
+										"nodes__0__components__0__component__form__nodeAmount__isValid",
+										"nodes__0__components__0__component__form__seed__isValid"
+									]
+								}
+							],
+							"form": {
+								"process": {
+									"isValid": false,
+									"formType": "DropdownFormField",
+									"label": "Prozessauswahl",
+									"type": "string",
+									"description": "Zur Verfügung stehende Organismus",
+									"action": { "instruction": "fetchTaskData", "type": "fetchData", "key": "schema" },
+									"initial": "Zersetzung von H2O2",
+									"options": ["Zersetzung von H2O2"],
+									"presets": {
+										"easy": "Zersetzung von H2O2"
+									}
+								},
+								"thermische_Parameter": {
+									"isValid": false,
+									"formType": "DropdownFormField",
+									"label": "Thermische Parameter",
+									"type": "string",
+									"description": "Zur Verfügung stehende Organismus",
+									"action": { "instruction": "fetchTaskData", "type": "fetchData", "key": "schema" },
+									"initial": "Adiabat",
+									"options": ["Adiabat"],
+									"presets": {
+										"easy": "Adiabat"
+									}
+								}
+							},
+							"data": {
+								"matrixData": "nodes__0__components__5__component__userData",
+								"phaseNumber" : "nodes__0__components__5__component__rowAnzahl"
+							}
+						}
+					},
+					"1": {
+						"type": "Bild",
+						"name": "Reaktionsapparat",
+						"component": {
+							"pfad": "/img/tasks/Reakt/Reakt_bild.webp"
+						}
+					},
+					"2": {
+						"name": "Stoffmengen",
+						"type": "Chart",
+						"component": {
+							"labels": "taskData__data_1__labels",
+							"datasets": "taskData__data_1__datasets"
+							
+						}
+					},
+					"3": {
+						"name": "Temperatur",
+						"type": "Chart",
+						"component": {
+							"labels": "taskData__data_2__labels",
+							"datasets": "taskData__data_2__datasets"
+						}
+					},
+					"4": {
+						"name": "Umsatz H2O2",
+						"type": "Chart",
+						"component": {
+							"labels": "taskData__data_3__labels",
+							"datasets": "taskData__data_3__datasets"
+							
+						}
+					},
+					"5" : {
+						"name": "Nutzereingaben",
+						"type": "Matrix",
+						"isValid": false,
+						"isCorrect": false,
+						"dependencies": {
+							"Matrix": {
+								"data": "nodes__0__components__5__component__userData"
+							}
+						},
+						"methods": {},
+						"contextMenu": {
+							"isOpen": false,
+							"usedMethods": []
+						},
+						"component": {
+							"initialize": {
+								"solution": {
+									"operations": [],
+									"paths": ["taskData__adjacencyMatrix"]
+								},
+								"validation": {
+									"operations": [
+										{
+											"name": "getValueInitializedMatrix",
+											"args": [
+												{
+													"isValid": false,
+													"isCorrect": false
+												}
+											]
+										}
+									],
+									"paths": ["taskData__adjacencyMatrix"]
+								},
+								"user": {
+									"operations": [
+										{
+											"name": "getMatrix",
+											"args": []
+										}
+									],
+									"paths": ["taskData__adjacencyMatrix"]
+								}
+							},
+							"standardZeile": [1, 1, 50, 20],
+							"userData": [],
+							"checkUserDataValidity": "valid",
+							"columnLabelData": [
+								"Volumen H2O2 in L",
+								"Konzentration H2O2 in mol/L",
+								"Wasser-Startvolumen in L",
+								"Starttemperatur in °C"
+							],
+							"rowLabelData": ["Phase"],
+							"validationData": null,
+							"solutionData": null,
+							"readOnly": false,
+							"rowLabel": "nodes__0__components__5__component__rowLabelData",
+							"columnLabel": "nodes__0__components__5__component__columnLabelData",
+							"inputType": "number",
+							"rowAnzahl": 2,
+							"spaltenMaxSumme": [],
+							"columnRange": [
+								{
+									"name": "Volumen H2O2 in L",
+									"min": 1,
+									"max": 40
+								},
+								{
+									"name": "Konzentration H2O2 in mol/L",
+									"min": 1,
+									"max": 12
+								},
+								{
+									"name": "Wasser-Startvolumen in L",
+									"min": 50,
+									"max": 200
+								},
+								{
+									"name": "Starttemperatur in °C",
+									"min": 0,
+									"max": 30
+								}
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}
+

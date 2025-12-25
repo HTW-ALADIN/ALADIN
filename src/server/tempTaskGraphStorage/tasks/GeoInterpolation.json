@@ -45,17 +45,6 @@
 						"type": "BackgroundGraph",
 						"name": "perlin",
 						"isValid": true,
-						"nestedComponents": {
-							"DOTGraph": {
-								"type": "DOTGraph",
-								"name": "EPK",
-								"isValid": true,
-								"component": {},
-								"dependencies": {
-									"dotDescription": "taskData__dotDescription"
-								}
-							}
-						},
 						"dependencies": {
 							"ContourPlot": { "grid": "taskData__grid", "thresholds": "taskData__thresholds" },
 							"DOTGraph": { "dotDescription": "taskData__dotDescription" }

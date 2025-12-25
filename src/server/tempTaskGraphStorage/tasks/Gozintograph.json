@@ -22,7 +22,7 @@
 	},
 	"UI": {
 		"currentTask": "gozintograph",
-		"taskMode": "practice",
+		"taskMode": "strictPractice",
 		"taskData": {},
 		"rootNode": 0,
 		"previousNode": 0,
@@ -387,6 +387,8 @@
 									"paths": ["taskData__adjacencyMatrix"]
 								}
 							},
+							
+							
 							"userData": null,
 							"validationData": null,
 							"solutionData": null,
